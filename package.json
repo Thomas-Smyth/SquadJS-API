@@ -1,0 +1,31 @@
+{
+  "name": "SquadJS-API",
+  "version": "1.0.0",
+  "repository": "https://github.com/Thomas-Smyth/SquadJS-API.git",
+  "author": "Thomas Smyth <https://github.com/Thomas-Smyth>",
+  "license": "MIT",
+  "private": true,
+  "workspaces": [
+    "api",
+    "lib"
+  ],
+  "scripts": {
+    "lint": "eslint --fix . && prettier --write \"./**/*.js\"",
+    "start": "cross-env NODE_ENV=production node api/index.js",
+    "dev": "nodemon api/index.js"
+  },
+  "devDependencies": {
+    "cross-env": "^7.0.2",
+    "eslint": "^7.11.0",
+    "eslint-config-prettier": "^6.13.0",
+    "eslint-config-standard": "^14.1.1",
+    "eslint-plugin-import": "^2.22.1",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-promise": "^4.2.1",
+    "eslint-plugin-standard": "^4.0.1",
+    "husky": "^4.3.0",
+    "lint-staged": "^10.4.2",
+    "nodemon": "^2.0.5",
+    "prettier": "^2.1.2"
+  }
+}

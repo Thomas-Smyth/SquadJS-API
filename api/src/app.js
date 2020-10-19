@@ -30,6 +30,8 @@ if (!inProduction) app.use(Logger());
 const router = new Router();
 
 router.get('/', (ctx) => ctx.redirect('https://github.com/Thomas-Smyth/SquadJS'));
+router.get('/discord', (ctx) => ctx.redirect('https://discord.gg/DjrpPuw'))
+
 router.post('/ping', ping);
 
 app.use(router.routes());

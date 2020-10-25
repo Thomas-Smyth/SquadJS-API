@@ -5,7 +5,7 @@ import Cors from '@koa/cors';
 import BodyParser from 'koa-bodyparser';
 import Logger from 'koa-logger';
 
-import ping from './routes/ping.js';
+import v1 from './v1/index.js';
 
 const inProduction = process.env.NODE_ENV;
 
@@ -29,11 +29,15 @@ if (!inProduction) app.use(Logger());
 
 const router = new Router();
 
+// base routes
 router.get('/', (ctx) => ctx.redirect('https://github.com/Thomas-Smyth/SquadJS'));
-router.get('/discord', (ctx) => ctx.redirect('https://discord.gg/DjrpPuw'))
+router.get('/discord', (ctx) => ctx.redirect('https://discord.gg/DjrpPuw'));
 
-router.post('/ping', ping);
+// apply v1 routes to router
+router.use('/api/v1', v1.routes());
+router.use('/api/v1', v1.allowedMethods());
 
+// apply routes to app
 app.use(router.routes());
 app.use(router.allowedMethods());
 

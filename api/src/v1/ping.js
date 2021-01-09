@@ -1,24 +1,43 @@
 import { SquadJSInstance } from 'lib/db/models';
 
 export default async function (ctx) {
-  // get variables from request
-  const config = ctx.request.body.config;
+  // Get mandatory variables.
+  const host = ctx.request.body.server?.host;
+  const queryPort = ctx.request.body.server?.queryPort;
 
-  const host = config.server.host;
-  const queryPort = config.server.queryPort;
-
-  const version = config.version;
-
-  // check request is valid
+  // Check the mandatoru variables are present.
   if (!host || !queryPort) {
     ctx.body = { error: 'Invalid ping.' };
     return;
   }
 
-  // save ping information
+  // Collect the other variables.
+  const name = ctx.request.body.server?.name;
+  const playerCount = ctx.request.body.server?.playerCount;
+
+  const version = ctx.request.body.squadjs?.version;
+  const logReaderMode = ctx.request.body.squadjs?.logReaderMode;
+
+  const plugins = JSON.stringify(ctx.request.body.squadjs?.plugins);
+
+  // Save ping information.
   await SquadJSInstance.upsert(
-    { host, queryPort, config: JSON.stringify(config), version, lastPinged: Date.now() },
-    { where: { host, queryPort } }
+    {
+      host,
+      queryPort,
+      name,
+      playerCount,
+      version,
+      logReaderMode,
+      plugins,
+      lastPinged: Date.now()
+    },
+    {
+      where: {
+        host,
+        queryPort
+      }
+    }
   );
 
   // respond

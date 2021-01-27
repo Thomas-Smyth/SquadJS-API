@@ -3,7 +3,7 @@ import { Logger } from 'lib/utils';
 
 import { server, client } from './src/app.js';
 
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 80;
 
 async function main() {
   // Prepare the Nextjs client.

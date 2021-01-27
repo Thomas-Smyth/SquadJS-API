@@ -6,13 +6,41 @@
   "license": "MIT",
   "private": true,
   "workspaces": [
-    "api",
-    "lib"
+    "client",
+    "lib",
+    "web-server"
   ],
   "scripts": {
     "lint": "eslint --fix . && prettier --write \"./**/*.js\"",
-    "start": "cross-env NODE_ENV=production node api/index.js",
-    "dev": "nodemon api/index.js"
+    "build": "cd client && npm run build",
+    "start": "cross-env NODE_ENV=production node web-server/index.js",
+    "dev": "nodemon web-server/index.js"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.js": [
+      "eslint --fix .",
+      "prettier --write \"./**/*.js\"",
+      "git add"
+    ]
+  },
+  "eslintConfig": {
+    "extends": [
+      "standard",
+      "prettier"
+    ],
+    "parserOptions": {
+      "ecmaVersion": 2020
+    }
+  },
+  "prettier": {
+    "singleQuote": true,
+    "printWidth": 100,
+    "trailingComma": "none"
   },
   "devDependencies": {
     "cross-env": "^7.0.3",

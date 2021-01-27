@@ -24,4 +24,4 @@ RUN yarn run build
 EXPOSE 80
 
 # Run servicce
-CMD [ "node", "api/index.js" ]
+CMD [ "node", "web-server/index.js" ]
